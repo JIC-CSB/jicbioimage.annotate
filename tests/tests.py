@@ -61,7 +61,7 @@ class CanvasUnitTests(unittest.TestCase):
             canvas.draw_cross(x=1, y=3, color=(1, 1, 1), radius=1)
 
     def test_from_grayscale(self):
-        from jicbioimage.annotate import Canvas as AC
+        from jicbioimage.annotate import Canvas
         grayscale = np.array([
             [0, 10, 20],
             [30, 40, 50],
@@ -72,13 +72,13 @@ class CanvasUnitTests(unittest.TestCase):
         red_expected = np.dstack([grayscale, zeros, zeros])
         cyan_expected = np.dstack([zeros, grayscale, grayscale])
 
-        gray_canvas = AC.from_grayscale(grayscale)
+        gray_canvas = Canvas.from_grayscale(grayscale)
         self.assertTrue(np.array_equal(gray_canvas, gray_expected))
 
-        red_canvas = AC.from_grayscale(grayscale, (True, False, False))
+        red_canvas = Canvas.from_grayscale(grayscale, (True, False, False))
         self.assertTrue(np.array_equal(red_canvas, red_expected))
 
-        cyan_canvas = AC.from_grayscale(grayscale, (False, True, True))
+        cyan_canvas = Canvas.from_grayscale(grayscale, (False, True, True))
         self.assertTrue(np.array_equal(cyan_canvas, cyan_expected))
 
 
