@@ -5,7 +5,7 @@ import numpy as np
 __version__ = "0.0.1"
 
 
-class AnnotationCanvas(np.ndarray):
+class Canvas(np.ndarray):
     """Class for building up annotated images."""
 
     @staticmethod
@@ -14,10 +14,10 @@ class AnnotationCanvas(np.ndarray):
 
         :param x: xdim
         :param y: ydim
-        :returns: :class:`jicbioimage.annotate.AnnotationCanvas`
+        :returns: :class:`jicbioimage.annotate.Canvas`
         """
         canvas = np.zeros((x, y, 3), dtype=np.uint8)
-        return canvas.view(AnnotationCanvas)
+        return canvas.view(Canvas)
 
     @staticmethod
     def from_grayscale(im, channels_on=(True, True, True)):
@@ -25,14 +25,14 @@ class AnnotationCanvas(np.ndarray):
 
         :param im: single channel image
         :channels_on: channels to populate with input image
-        :returns: :class:`jicbioimage.annotate.AnnotationCanvas`
+        :returns: :class:`jicbioimage.annotate.Canvas`
         """
         xdim, ydim = im.shape
         canvas = np.zeros((xdim, ydim, 3), dtype=np.uint8)
         for i, include in enumerate(channels_on):
             if include:
                 canvas[:, :, i] = im
-        return canvas.view(AnnotationCanvas)
+        return canvas.view(Canvas)
 
     def draw_cross(self, x, y, color=(255, 0, 0), radius=4):
         """Draw a cross on the canvas.

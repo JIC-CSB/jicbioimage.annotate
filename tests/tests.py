@@ -17,51 +17,51 @@ class UnitTests(unittest.TestCase):
         self.assertTrue(isinstance(jicbioimage.annotate.__version__, str))
 
 
-class AnnotationCanvasUnitTests(unittest.TestCase):
+class CanvasUnitTests(unittest.TestCase):
 
     def test_blank_canvas(self):
-        from jicbioimage.annotate import AnnotationCanvas
-        canvas = AnnotationCanvas.blank_canvas(x=4, y=5)
-        self.assertTrue(isinstance(canvas, AnnotationCanvas))
+        from jicbioimage.annotate import Canvas
+        canvas = Canvas.blank_canvas(x=4, y=5)
+        self.assertTrue(isinstance(canvas, Canvas))
         self.assertTrue(isinstance(canvas, np.ndarray))
         self.assertEqual(canvas.shape, (4, 5, 3))
         self.assertEqual(canvas.dtype, np.uint8)
         self.assertEqual(np.sum(canvas), 0)
 
     def test_draw_cross(self):
-        from jicbioimage.annotate import AnnotationCanvas
-        canvas = AnnotationCanvas.blank_canvas(x=3, y=3)
+        from jicbioimage.annotate import Canvas
+        canvas = Canvas.blank_canvas(x=3, y=3)
         canvas.draw_cross(x=1, y=1, color=(1, 1, 1), radius=1)
         layer = np.array([[0, 1, 0], [1, 1, 1], [0, 1, 0]], dtype=np.uint8)
         expected = np.dstack([layer, layer, layer])
         self.assertTrue(np.array_equal(canvas, expected))
 
     def test_draw_cross_in_upper_left_corner(self):
-        from jicbioimage.annotate import AnnotationCanvas
-        canvas = AnnotationCanvas.blank_canvas(x=3, y=3)
+        from jicbioimage.annotate import Canvas
+        canvas = Canvas.blank_canvas(x=3, y=3)
         canvas.draw_cross(x=0, y=0, color=(1, 1, 1), radius=1)
         layer = np.array([[1, 1, 0], [1, 0, 0], [0, 0, 0]], dtype=np.uint8)
         expected = np.dstack([layer, layer, layer])
         self.assertTrue(np.array_equal(canvas, expected))
 
     def test_draw_cross_in_lower_right_corner(self):
-        from jicbioimage.annotate import AnnotationCanvas
-        canvas = AnnotationCanvas.blank_canvas(x=3, y=3)
+        from jicbioimage.annotate import Canvas
+        canvas = Canvas.blank_canvas(x=3, y=3)
         canvas.draw_cross(x=2, y=2, color=(1, 1, 1), radius=1)
         layer = np.array([[0, 0, 0], [0, 0, 1], [0, 1, 1]], dtype=np.uint8)
         expected = np.dstack([layer, layer, layer])
         self.assertTrue(np.array_equal(canvas, expected))
 
     def test_cross_outside_canvas_raises_index_error(self):
-        from jicbioimage.annotate import AnnotationCanvas
-        canvas = AnnotationCanvas.blank_canvas(x=3, y=3)
+        from jicbioimage.annotate import Canvas
+        canvas = Canvas.blank_canvas(x=3, y=3)
         with self.assertRaises(IndexError):
             canvas.draw_cross(x=3, y=1, color=(1, 1, 1), radius=1)
         with self.assertRaises(IndexError):
             canvas.draw_cross(x=1, y=3, color=(1, 1, 1), radius=1)
 
     def test_from_grayscale(self):
-        from jicbioimage.annotate import AnnotationCanvas as AC
+        from jicbioimage.annotate import Canvas as AC
         grayscale = np.array([
             [0, 10, 20],
             [30, 40, 50],
@@ -92,10 +92,10 @@ class FunctionalTests(unittest.TestCase):
         shutil.rmtree(TMP_DIR)
 
     def test_create_annotation_image_from_scratch(self):
-        from jicbioimage.annotate import AnnotationCanvas
+        from jicbioimage.annotate import Canvas
 
         # Create an empty canvas.
-        canvas = AnnotationCanvas.blank_canvas(50, 75)
+        canvas = Canvas.blank_canvas(50, 75)
 
         # Draw a cross on it, centered on pixel 10,15.
         canvas.draw_cross(x=10, y=15, radius=1, color=(1, 0, 0))
