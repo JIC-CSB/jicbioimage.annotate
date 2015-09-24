@@ -14,9 +14,24 @@ class AnnotationCanvas(np.ndarray):
 
         :param x: xdim
         :param y: ydim
-        :returns: :class:`jicbioimage.annotate.AnnotationImage`
+        :returns: :class:`jicbioimage.annotate.AnnotationCanvas`
         """
         canvas = np.zeros((x, y, 3), dtype=np.uint8)
+        return canvas.view(AnnotationCanvas)
+
+    @staticmethod
+    def from_grayscale(im, channels_on=(True, True, True)):
+        """Return a canvas from a grayscale image.
+
+        :param im: single channel image
+        :channels_on: channels to populate with input image
+        :returns: :class:`jicbioimage.annotate.AnnotationCanvas`
+        """
+        xdim, ydim = im.shape
+        canvas = np.zeros((xdim, ydim, 3), dtype=np.uint8)
+        for i, include in enumerate(channels_on):
+            if include:
+                canvas[:, :, i] = im
         return canvas.view(AnnotationCanvas)
 
     def draw_cross(self, x, y, color=(255, 0, 0), radius=4):
