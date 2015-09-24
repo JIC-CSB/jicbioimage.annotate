@@ -81,6 +81,15 @@ class CanvasUnitTests(unittest.TestCase):
         cyan_canvas = Canvas.from_grayscale(grayscale, (False, True, True))
         self.assertTrue(np.array_equal(cyan_canvas, cyan_expected))
 
+    def test_mask_region(self):
+        from jicbioimage.annotate import Canvas
+        canvas = Canvas.blank_canvas(3, 3)
+        region = np.zeros((3, 3), dtype=bool)
+        region[1, 1] = True
+        canvas.mask_region(region, color=(0, 1, 0))
+        self.assertEqual(np.sum(canvas), 1)
+        self.assertTrue(canvas[1, 1, 1])
+
 
 class FunctionalTests(unittest.TestCase):
 

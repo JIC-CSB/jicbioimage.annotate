@@ -39,7 +39,7 @@ class Canvas(np.ndarray):
 
         :param x: x coordinate (int)
         :param y: y coordinate (int)
-        :param color: color of the cross (RGB tuple)
+        :param color: RGB tuple
         :param radius: radius of the cross (int)
         """
         for xmod in np.arange(-radius, radius+1, 1):
@@ -56,3 +56,11 @@ class Canvas(np.ndarray):
             if ypos >= self.shape[1]:
                 continue  # Out of bounds.
             self[x, ypos] = color
+
+    def mask_region(self, region, color=(0, 255, 0)):
+        """Mask a region with a color.
+
+        :param region: :class:`jicbioimage.core.region.Region`
+        :param color: RGB tuple
+        """
+        self[region] = color
