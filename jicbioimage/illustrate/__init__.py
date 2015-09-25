@@ -1,9 +1,9 @@
-"""Module for creating annotated images.
+"""Module for creating illustrations.
 
 To create an annotated image we need an instance of the
-:class:`jicbioimage.illustrate.Canvas` class.
+:class:`jicbioimage.illustrate.AnnotatedImage` class.
 
->>> from jicbioimage.illustrate import Canvas
+>>> from jicbioimage.illustrate import AnnotatedImage
 
 Suppose that we have an existing image.
 
@@ -13,7 +13,7 @@ Suppose that we have an existing image.
 We can use this image to create an canvas instance populated with the data
 as a RGB gray scale image.
 
->>> canvas = Canvas.from_grayscale(im)
+>>> canvas = AnnotatedImage.from_grayscale(im)
 
 The :class:`jicbioimage.illustrate.Canvas` instance has built in annotation
 functionality. We can draw a cross at coordinates (10, 20).
@@ -47,21 +47,6 @@ class Canvas(np.ndarray):
         canvas = np.zeros((x, y, 3), dtype=np.uint8)
         return canvas.view(Canvas)
 
-    @staticmethod
-    def from_grayscale(im, channels_on=(True, True, True)):
-        """Return a canvas from a grayscale image.
-
-        :param im: single channel image
-        :channels_on: channels to populate with input image
-        :returns: :class:`jicbioimage.illustrate.Canvas`
-        """
-        xdim, ydim = im.shape
-        canvas = np.zeros((xdim, ydim, 3), dtype=np.uint8)
-        for i, include in enumerate(channels_on):
-            if include:
-                canvas[:, :, i] = im
-        return canvas.view(Canvas)
-
     def draw_cross(self, x, y, color=(255, 0, 0), radius=4):
         """Draw a cross on the canvas.
 
@@ -92,3 +77,22 @@ class Canvas(np.ndarray):
         :param color: RGB tuple
         """
         self[region] = color
+
+
+class AnnotatedImage(Canvas):
+    """Class for building up annotated images."""
+
+    @staticmethod
+    def from_grayscale(im, channels_on=(True, True, True)):
+        """Return a canvas from a grayscale image.
+
+        :param im: single channel image
+        :channels_on: channels to populate with input image
+        :returns: :class:`jicbioimage.illustrate.Canvas`
+        """
+        xdim, ydim = im.shape
+        canvas = np.zeros((xdim, ydim, 3), dtype=np.uint8)
+        for i, include in enumerate(channels_on):
+            if include:
+                canvas[:, :, i] = im
+        return canvas.view(AnnotatedImage)
