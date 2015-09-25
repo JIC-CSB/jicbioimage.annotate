@@ -24,15 +24,15 @@ class NoseTestCommand(TestCommand):
 version = "0.0.1"
 readme = open('README.rst').read()
 
-setup(name="jicbioimage.annotate",
-      packages=['jicbioimage', 'jicbioimage.annotate'],
+setup(name="jicbioimage.illustrate",
+      packages=['jicbioimage', 'jicbioimage.illustrate'],
       version=version,
       description='Python package designed to make it easy to work with bio images.',
       long_description=readme,
       author='Tjelvar Olsson',
       author_email = 'tjelvar.olsson@jic.ac.uk',
-      url = 'https://github.com/JIC-CSB/jicbioimage.core',
-      download_url = 'https://github.com/JIC-CSB/jicbioimage.core/tarball/{}'.format(version),
+      url = 'https://github.com/JIC-CSB/jicbioimage.illustrate',
+      download_url = 'https://github.com/JIC-CSB/jicbioimage.illustrate/tarball/{}'.format(version),
       license='MIT',
       classifiers=[
         "Development Status :: 3 - Alpha",

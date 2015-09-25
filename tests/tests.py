@@ -13,14 +13,14 @@ TMP_DIR = os.path.join(HERE, 'tmp')
 class UnitTests(unittest.TestCase):
 
     def test_package_has_version_string(self):
-        import jicbioimage.annotate
-        self.assertTrue(isinstance(jicbioimage.annotate.__version__, str))
+        import jicbioimage.illustrate
+        self.assertTrue(isinstance(jicbioimage.illustrate.__version__, str))
 
 
 class CanvasUnitTests(unittest.TestCase):
 
     def test_blank_canvas(self):
-        from jicbioimage.annotate import Canvas
+        from jicbioimage.illustrate import Canvas
         canvas = Canvas.blank_canvas(x=4, y=5)
         self.assertTrue(isinstance(canvas, Canvas))
         self.assertTrue(isinstance(canvas, np.ndarray))
@@ -29,7 +29,7 @@ class CanvasUnitTests(unittest.TestCase):
         self.assertEqual(np.sum(canvas), 0)
 
     def test_draw_cross(self):
-        from jicbioimage.annotate import Canvas
+        from jicbioimage.illustrate import Canvas
         canvas = Canvas.blank_canvas(x=3, y=3)
         canvas.draw_cross(x=1, y=1, color=(1, 1, 1), radius=1)
         layer = np.array([[0, 1, 0], [1, 1, 1], [0, 1, 0]], dtype=np.uint8)
@@ -37,7 +37,7 @@ class CanvasUnitTests(unittest.TestCase):
         self.assertTrue(np.array_equal(canvas, expected))
 
     def test_draw_cross_in_upper_left_corner(self):
-        from jicbioimage.annotate import Canvas
+        from jicbioimage.illustrate import Canvas
         canvas = Canvas.blank_canvas(x=3, y=3)
         canvas.draw_cross(x=0, y=0, color=(1, 1, 1), radius=1)
         layer = np.array([[1, 1, 0], [1, 0, 0], [0, 0, 0]], dtype=np.uint8)
@@ -45,7 +45,7 @@ class CanvasUnitTests(unittest.TestCase):
         self.assertTrue(np.array_equal(canvas, expected))
 
     def test_draw_cross_in_lower_right_corner(self):
-        from jicbioimage.annotate import Canvas
+        from jicbioimage.illustrate import Canvas
         canvas = Canvas.blank_canvas(x=3, y=3)
         canvas.draw_cross(x=2, y=2, color=(1, 1, 1), radius=1)
         layer = np.array([[0, 0, 0], [0, 0, 1], [0, 1, 1]], dtype=np.uint8)
@@ -53,7 +53,7 @@ class CanvasUnitTests(unittest.TestCase):
         self.assertTrue(np.array_equal(canvas, expected))
 
     def test_cross_outside_canvas_raises_index_error(self):
-        from jicbioimage.annotate import Canvas
+        from jicbioimage.illustrate import Canvas
         canvas = Canvas.blank_canvas(x=3, y=3)
         with self.assertRaises(IndexError):
             canvas.draw_cross(x=3, y=1, color=(1, 1, 1), radius=1)
@@ -61,7 +61,7 @@ class CanvasUnitTests(unittest.TestCase):
             canvas.draw_cross(x=1, y=3, color=(1, 1, 1), radius=1)
 
     def test_from_grayscale(self):
-        from jicbioimage.annotate import Canvas
+        from jicbioimage.illustrate import Canvas
         grayscale = np.array([
             [0, 10, 20],
             [30, 40, 50],
@@ -82,7 +82,7 @@ class CanvasUnitTests(unittest.TestCase):
         self.assertTrue(np.array_equal(cyan_canvas, cyan_expected))
 
     def test_mask_region(self):
-        from jicbioimage.annotate import Canvas
+        from jicbioimage.illustrate import Canvas
         canvas = Canvas.blank_canvas(3, 3)
         region = np.zeros((3, 3), dtype=bool)
         region[1, 1] = True
@@ -91,13 +91,13 @@ class CanvasUnitTests(unittest.TestCase):
         self.assertTrue(canvas[1, 1, 1])
 
     def test_text_at(self):
-        from jicbioimage.annotate import Canvas
+        from jicbioimage.illustrate import Canvas
         
 
 class FontFunctionalTests(unittest.TestCase):
     
     def test_font_module(self):
-        from jicbioimage.annotate.font import Font
+        from jicbioimage.illustrate.font import Font
         fnt = Font()
 
         # Single characters
@@ -166,7 +166,7 @@ class FunctionalTests(unittest.TestCase):
         shutil.rmtree(TMP_DIR)
 
     def test_create_annotation_image_from_scratch(self):
-        from jicbioimage.annotate import Canvas
+        from jicbioimage.illustrate import Canvas
 
         # Create an empty canvas.
         canvas = Canvas.blank_canvas(50, 75)
