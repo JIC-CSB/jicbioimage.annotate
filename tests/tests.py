@@ -21,16 +21,16 @@ class CanvasUnitTests(unittest.TestCase):
 
     def test_blank_canvas(self):
         from jicbioimage.illustrate import Canvas
-        canvas = Canvas.blank_canvas(x=4, y=5)
+        canvas = Canvas.blank_canvas(width=4, height=5)
         self.assertTrue(isinstance(canvas, Canvas))
         self.assertTrue(isinstance(canvas, np.ndarray))
-        self.assertEqual(canvas.shape, (4, 5, 3))
+        self.assertEqual(canvas.shape, (5, 4, 3))
         self.assertEqual(canvas.dtype, np.uint8)
         self.assertEqual(np.sum(canvas), 0)
 
     def test_draw_cross(self):
         from jicbioimage.illustrate import Canvas
-        canvas = Canvas.blank_canvas(x=3, y=3)
+        canvas = Canvas.blank_canvas(width=3, height=3)
         canvas.draw_cross(x=1, y=1, color=(1, 1, 1), radius=1)
         layer = np.array([[0, 1, 0], [1, 1, 1], [0, 1, 0]], dtype=np.uint8)
         expected = np.dstack([layer, layer, layer])
@@ -38,7 +38,7 @@ class CanvasUnitTests(unittest.TestCase):
 
     def test_draw_cross_in_upper_left_corner(self):
         from jicbioimage.illustrate import Canvas
-        canvas = Canvas.blank_canvas(x=3, y=3)
+        canvas = Canvas.blank_canvas(width=3, height=3)
         canvas.draw_cross(x=0, y=0, color=(1, 1, 1), radius=1)
         layer = np.array([[1, 1, 0], [1, 0, 0], [0, 0, 0]], dtype=np.uint8)
         expected = np.dstack([layer, layer, layer])
@@ -46,7 +46,7 @@ class CanvasUnitTests(unittest.TestCase):
 
     def test_draw_cross_in_lower_right_corner(self):
         from jicbioimage.illustrate import Canvas
-        canvas = Canvas.blank_canvas(x=3, y=3)
+        canvas = Canvas.blank_canvas(width=3, height=3)
         canvas.draw_cross(x=2, y=2, color=(1, 1, 1), radius=1)
         layer = np.array([[0, 0, 0], [0, 0, 1], [0, 1, 1]], dtype=np.uint8)
         expected = np.dstack([layer, layer, layer])
@@ -54,7 +54,7 @@ class CanvasUnitTests(unittest.TestCase):
 
     def test_cross_outside_canvas_raises_index_error(self):
         from jicbioimage.illustrate import Canvas
-        canvas = Canvas.blank_canvas(x=3, y=3)
+        canvas = Canvas.blank_canvas(width=3, height=3)
         with self.assertRaises(IndexError):
             canvas.draw_cross(x=3, y=1, color=(1, 1, 1), radius=1)
         with self.assertRaises(IndexError):
@@ -71,6 +71,17 @@ class CanvasUnitTests(unittest.TestCase):
 
     def test_text_at(self):
         from jicbioimage.illustrate import Canvas
+        canvas = Canvas.blank_canvas(width=4, height=6)
+        layer = np.array([
+            [0, 1, 1, 0],
+            [1, 0, 0, 1],
+            [1, 1, 1, 1],
+            [1, 0, 0, 0],
+            [1, 0, 0, 0],
+            [0, 1, 1, 1]], dtype=np.uint8)
+        expected = np.dstack([layer, layer, layer])
+        canvas.text_at("e", 0, 0, color=(1, 1, 1))
+        self.assertTrue(np.array_equal(canvas, expected))
 
 
 class AnnotatedImage(unittest.TestCase):
@@ -175,7 +186,7 @@ class FunctionalTests(unittest.TestCase):
         canvas = Canvas.blank_canvas(50, 75)
 
         # Draw a cross on it, centered on pixel 10,15.
-        canvas.draw_cross(x=10, y=15, radius=1, color=(1, 0, 0))
+        canvas.draw_cross(x=15, y=10, radius=1, color=(1, 0, 0))
 
         self.assertEqual(np.sum(canvas), 5)
         self.assertEqual(canvas[10, 15, 0], 1)

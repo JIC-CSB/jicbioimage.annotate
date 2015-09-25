@@ -30,6 +30,8 @@ Or mask out a bitmap with the color cyan.
 
 import numpy as np
 
+from font import Font
+
 __version__ = "0.0.1"
 
 
@@ -37,14 +39,14 @@ class Canvas(np.ndarray):
     """Class for building up annotated images."""
 
     @staticmethod
-    def blank_canvas(x, y):
+    def blank_canvas(width, height):
         """Return a blank canvas to annotate.
 
         :param x: xdim
         :param y: ydim
         :returns: :class:`jicbioimage.illustrate.Canvas`
         """
-        canvas = np.zeros((x, y, 3), dtype=np.uint8)
+        canvas = np.zeros((height, width, 3), dtype=np.uint8)
         return canvas.view(Canvas)
 
     def draw_cross(self, x, y, color=(255, 0, 0), radius=4):
@@ -61,14 +63,14 @@ class Canvas(np.ndarray):
                 continue  # Negative indices will draw on the opposite side.
             if xpos >= self.shape[0]:
                 continue  # Out of bounds.
-            self[xpos, y] = color
+            self[y, xpos] = color
         for ymod in np.arange(-radius, radius+1, 1):
             ypos = y + ymod
             if ypos < 0:
                 continue  # Negative indices will draw on the opposite side.
             if ypos >= self.shape[1]:
                 continue  # Out of bounds.
-            self[x, ypos] = color
+            self[ypos, x] = color
 
     def mask_region(self, region, color=(0, 255, 0)):
         """Mask a region with a color.
@@ -77,6 +79,21 @@ class Canvas(np.ndarray):
         :param color: RGB tuple
         """
         self[region] = color
+
+    def text_at(self, text, x, y, color=(255, 255, 255)):
+        """Write text at x, y top left corner position.
+
+        :param text: text to write
+        :param x: x coordinate (int)
+        :param y: y coordinate (int)
+        :param color: RGB tuple
+        """
+        fnt = Font()
+        ftext = fnt.render_text(text)
+        for ystep in range(ftext.height):
+            for xstep in range(ftext.width):
+                if ftext.pixels[ystep * ftext.width + xstep]:
+                    self[x + ystep, y + xstep] = color
 
 
 class AnnotatedImage(Canvas):
