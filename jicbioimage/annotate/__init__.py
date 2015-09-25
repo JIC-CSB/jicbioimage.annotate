@@ -10,8 +10,8 @@ Suppose that we have an existing image.
 >>> from jicbioimage.core.image import Image
 >>> im = Image((50,50))
 
-We can use this image to create an canvas instance populated with the image in
-gray scale.
+We can use this image to create an canvas instance populated with the data
+as a RGB gray scale image.
 
 >>> canvas = Canvas.from_grayscale(im)
 

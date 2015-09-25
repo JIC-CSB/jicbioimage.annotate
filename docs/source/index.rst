@@ -8,4 +8,5 @@ Content
    :maxdepth: 2
 
    README
+   ATTRIBUTIONS
    api

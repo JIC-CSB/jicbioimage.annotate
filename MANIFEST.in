@@ -1,0 +1,4 @@
+include README.rst
+include LICENCE.md
+include jicbioimage/annotate/fonts/ubuntu-font-licence-1.0.txt
+include jicbioimage/annotate/fonts/UbuntuMono-R.tff

@@ -53,5 +53,6 @@ setup(name="jicbioimage.annotate",
       install_requires=[
         'jicbioimage.core',
         'numpy',
+        'freetype-py',
       ]
 )
