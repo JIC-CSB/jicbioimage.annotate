@@ -1,9 +1,9 @@
 README
 ======
 
-To install the jicbioimage.annotate package.
+To install the jicbioimage.illustrate package.
 
 .. code-block:: bash
 
-    cd jicbioimage.annotate
+    cd jicbioimage.illustrate
     python setup.py install

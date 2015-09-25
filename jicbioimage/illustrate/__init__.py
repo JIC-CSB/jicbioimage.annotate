@@ -1,9 +1,9 @@
 """Module for creating annotated images.
 
 To create an annotated image we need an instance of the
-:class:`jicbioimage.annotate.Canvas` class.
+:class:`jicbioimage.illustrate.Canvas` class.
 
->>> from jicbioimage.annotate import Canvas
+>>> from jicbioimage.illustrate import Canvas
 
 Suppose that we have an existing image.
 
@@ -15,7 +15,7 @@ as a RGB gray scale image.
 
 >>> canvas = Canvas.from_grayscale(im)
 
-The :class:`jicbioimage.annotate.Canvas` instance has built in annotation
+The :class:`jicbioimage.illustrate.Canvas` instance has built in annotation
 functionality. We can draw a cross at coordinates (10, 20).
 
 >>> canvas.draw_cross(10, 20)
@@ -42,7 +42,7 @@ class Canvas(np.ndarray):
 
         :param x: xdim
         :param y: ydim
-        :returns: :class:`jicbioimage.annotate.Canvas`
+        :returns: :class:`jicbioimage.illustrate.Canvas`
         """
         canvas = np.zeros((x, y, 3), dtype=np.uint8)
         return canvas.view(Canvas)
@@ -53,7 +53,7 @@ class Canvas(np.ndarray):
 
         :param im: single channel image
         :channels_on: channels to populate with input image
-        :returns: :class:`jicbioimage.annotate.Canvas`
+        :returns: :class:`jicbioimage.illustrate.Canvas`
         """
         xdim, ydim = im.shape
         canvas = np.zeros((xdim, ydim, 3), dtype=np.uint8)
