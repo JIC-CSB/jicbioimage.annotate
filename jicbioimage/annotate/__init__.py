@@ -1,4 +1,32 @@
-"""jicbioimage.annotate package."""
+"""Module for creating annotated images.
+
+To create an annotated image we need an instance of the
+:class:`jicbioimage.annotate.Canvas` class.
+
+>>> from jicbioimage.annotate import Canvas
+
+Suppose that we have an existing image.
+
+>>> from jicbioimage.core.image import Image
+>>> im = Image((50,50))
+
+We can use this image to create an canvas instance populated with the image in
+gray scale.
+
+>>> canvas = Canvas.from_grayscale(im)
+
+The :class:`jicbioimage.annotate.Canvas` instance has built in annotation
+functionality. We can draw a cross at coordinates (10, 20).
+
+>>> canvas.draw_cross(10, 20)
+
+Or mask out a bitmap with the color cyan.
+
+>>> bitmap = np.zeros((50, 50), dtype=bool)
+>>> bitmap[30:40, 30:40] = True
+>>> canvas.mask_region(bitmap, color=(0, 255, 255))
+
+"""
 
 import numpy as np
 
