@@ -1,5 +1,6 @@
 import os, os.path
 import zipfile
+import shutil
 
 try: 
     from urllib2 import urlopen
@@ -49,6 +50,11 @@ def install_freetype():
 
     url = 'http://gnuwin32.sourceforge.net/downlinks/freetype-bin-zip.php'
     install_from_zip(url)
+
+    # Make a copy of the fretype.dll that py-freeimage module can find.
+    src_fname = os.path.join(".", "bin", "freetype6.dll")
+    dst_fname = os.path.join(".", "bin", "Freetype.dll")
+    shutil.copy(src_fname, dst_fname)
 
     os.chdir("/")
 
