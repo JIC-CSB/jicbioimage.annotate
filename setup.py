@@ -25,7 +25,7 @@ version = "0.0.1"
 readme = open('README.rst').read()
 
 setup(name="jicbioimage.illustrate",
-      packages=['jicbioimage', 'jicbioimage.illustrate'],
+      packages=['jicbioimage', 'jicbioimage.illustrate', 'jicbioimage.illustrate.font'],
       version=version,
       description='Python package designed to make it easy to work with bio images.',
       long_description=readme,
