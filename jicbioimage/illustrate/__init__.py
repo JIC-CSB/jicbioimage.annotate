@@ -30,7 +30,7 @@ Or mask out a bitmap with the color cyan.
 
 import numpy as np
 
-from font import Font
+from jicbioimage.illustrate.font import Font
 
 __version__ = "0.0.1"
 
