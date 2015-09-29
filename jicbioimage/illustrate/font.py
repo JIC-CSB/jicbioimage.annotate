@@ -27,6 +27,33 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
+"""
+Module for rendering characters and text.
+
+Example usage.
+
+>>> import numpy as np
+>>> from jicbioimage.illustrate.font import Font
+>>> fnt = Font()
+>>> ftext = fnt.render_text("Hello")
+>>> ar = np.zeros((ftext.height, ftext.width), dtype=np.uint8)
+>>> for ystep in range(ftext.height):
+...     for xstep in range(ftext.width):
+...         if ftext.pixels[ystep * ftext.width + xstep]:
+...             ar[ystep, xstep] = 1
+...
+>>> print(ar)
+[[0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0]
+ [1 0 0 1 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0]
+ [1 0 0 1 0 0 0 1 1 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 1 0 0 0]
+ [1 0 0 1 0 0 1 0 0 1 0 0 0 1 0 0 0 0 0 1 0 0 0 0 1 0 0 1 0 0]
+ [1 1 1 1 0 0 1 1 1 1 0 0 0 1 0 0 0 0 0 1 0 0 0 0 1 0 0 1 0 0]
+ [1 0 0 1 0 0 1 0 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 1 0 0 1 0 0]
+ [1 0 0 1 0 0 1 0 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 1 0 0 1 0 0]
+ [1 0 0 1 0 0 0 1 1 1 0 0 0 0 1 1 0 0 0 0 1 1 0 0 0 1 1 0 0 0]]
+
+"""
+
 import os.path
 
 import freetype
@@ -73,6 +100,8 @@ class Bitmap(object):
 
 
 class Glyph(object):
+    """Glyph class."""
+
     def __init__(self, pixels, width, height, top, advance_width):
         self.bitmap = Bitmap(width, height, pixels)
 
@@ -91,10 +120,12 @@ class Glyph(object):
 
     @property
     def width(self):
+        """Return bitmap width."""
         return self.bitmap.width
 
     @property
     def height(self):
+        """Return bitmap height."""
         return self.bitmap.height
 
     @staticmethod
@@ -153,6 +184,11 @@ class Glyph(object):
 
 
 class Font(object):
+    """Font class.
+
+    Defaults to UbuntuMono font.
+    """
+
     def __init__(self, filename=None, size=12):
         if filename is None:
             filename = DEFAULT_FONT_PATH
@@ -160,12 +196,14 @@ class Font(object):
         self.face.set_pixel_sizes(0, size)
 
     def glyph_for_character(self, char):
+        """Return :class:`jicbioimage.illustrate.font.Glyph` instance."""
         # Let FreeType load the glyph for the given character and tell it to render
         # a monochromatic bitmap representation.
         self.face.load_char(char, freetype.FT_LOAD_RENDER | freetype.FT_LOAD_TARGET_MONO)
         return Glyph.from_glyphslot(self.face.glyph)
 
     def render_character(self, char):
+        """Return :attr:`jicbioimage.illustrate.Glyph.bitmap."""
         glyph = self.glyph_for_character(char)
         return glyph.bitmap
 
