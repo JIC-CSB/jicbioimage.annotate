@@ -19,8 +19,8 @@ install:
   - activate test-environment
   - pip install coverage mock
   - "python appveyor\\install.py"
-  - "dir C:\\freetype\\bin"
-  - "set PATH=C:\\freetype\\bin;%PATH%"
+  - "dir C:\\freetype"
+  - "set PATH=C:\\freetype;%PATH%"
   - "ECHO %PATH%"
   - python setup.py install
 

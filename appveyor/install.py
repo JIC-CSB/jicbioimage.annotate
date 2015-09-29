@@ -48,16 +48,9 @@ def install_freetype():
     os.mkdir("freetype")
     os.chdir("freetype")
 
-    url = 'http://gnuwin32.sourceforge.net/downlinks/freetype-bin-zip.php'
+    # From: https://github.com/rougier/freetype-py/issues/17
+    url = 'https://dl.dropboxusercontent.com/u/37405488/freetype-x86.zip'
     install_from_zip(url)
-
-    deps_url = 'http://gnuwin32.sourceforge.net/downlinks/freetype-dep-zip.php'
-    install_from_zip(deps_url)
-
-    # Make a copy of the fretype.dll that py-freeimage module can find.
-    src_fname = os.path.join(".", "bin", "freetype6.dll")
-    dst_fname = os.path.join(".", "bin", "Freetype.dll")
-    shutil.copy(src_fname, dst_fname)
 
     os.chdir("/")
 
