@@ -50,7 +50,7 @@ def install_freetype():
     url = 'http://gnuwin32.sourceforge.net/downlinks/freetype-bin-zip.php'
     install_from_zip(url)
 
-    os.chidr("/")
+    os.chdir("/")
 
 def main():
     print("Running {}.{}".format(__file__, __name__))
