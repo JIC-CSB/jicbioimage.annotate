@@ -5,3 +5,4 @@ API documentation
    :maxdepth: 2
 
    api/illustrate
+   api/font
