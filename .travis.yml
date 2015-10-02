@@ -3,6 +3,7 @@
 # https://gist.github.com/dan-blanchard/7045057
 
 language: python
+sudo: false
 python:
   # We don't actually use the Travis Python, but this keeps it organized.
   - "2.7"
@@ -10,8 +11,8 @@ python:
   - "3.4"
   - "3.5"
 install:
-  - sudo apt-get update
-  - sudo apt-get install libfreetype6-dev
+  # - sudo apt-get update
+  # - sudo apt-get install libfreetype6-dev
   # We do this conditionally because it saves us some downloading if the
   # version is the same.
   - if [[ "$TRAVIS_PYTHON_VERSION" == "2.7" ]]; then
@@ -26,7 +27,7 @@ install:
   - conda update -q conda
   # Useful for debugging any issues with conda
   - conda info -a
-  - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION numpy nose
+  - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION numpy nose pillow
   - source activate test-environment
   - pip install coverage codecov
   - python setup.py install
