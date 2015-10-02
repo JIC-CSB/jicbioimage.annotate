@@ -1,9 +1,17 @@
 The ``jicbioimage.illustrate`` Python package
 =============================================
 
+.. image:: https://badge.fury.io/py/jicbioimage.illustrate.svg
+   :target: http://badge.fury.io/py/jicbioimage.illustrate
+   :alt: PyPi package
+
 .. image:: https://travis-ci.org/JIC-CSB/jicbioimage.illustrate.svg?branch=master
    :target: https://travis-ci.org/JIC-CSB/jicbioimage.illustrate
    :alt: Travis CI build status (Linux)
+
+.. image:: https://ci.appveyor.com/api/projects/status/36gy8tjiymldgx8x/branch/master?svg=true
+   :target: https://ci.appveyor.com/project/tjelvar-olsson/jicbioimage-illustrate
+   :alt: AppVeyor CI build status (Windows)
 
 .. image::
    https://codecov.io/github/JIC-CSB/jicbioimage.illustrate/coverage.svg?branch=master
@@ -19,11 +27,34 @@ creating annotated images and illustrations.
 
 - Documentation: http://jicbioimageillustrate.readthedocs.org
 - GitHub: https://github.com/JIC-CSB/jicbioimage.illustrate
+- PyPI: https://pypi.python.org/pypi/jicbioimage.illustrate
 - Free software: MIT License
 
-To install the jicbioimage.illustrate package.
+Features
+--------
 
-.. code-block:: bash
+- Load texture from grayscale image
+- Mask regions of interest
+- Draw crosses
+- Write text
 
-    cd jicbioimage.illustrate
-    python setup.py install
+Related packages
+----------------
+
+``jicbioimage``
+^^^^^^^^^^^^^^^
+
+- Documentation: http://jicbioimage.readthedocs.org
+- GitHub: https://github.com/JIC-CSB/jicbioimage
+
+``jicbioimage.core``
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+- Documentation: http://jicbioimagecore.readthedocs.org
+- GitHub: https://github.com/JIC-CSB/jicbioimage.core
+
+``jicbioimage.transform``
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+- Documentation: http://jicbioimagetransform.readthedocs.org
+- GitHub: https://github.com/JIC-CSB/jicbioimage.transform
