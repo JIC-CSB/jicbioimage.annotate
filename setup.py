@@ -51,7 +51,7 @@ setup(name="jicbioimage.illustrate",
       cmdclass={"test": NoseTestCommand},
       tests_require=["nose", "coverage"],
       install_requires=[
+        'pillow',
         'numpy',
-        'freetype-py',
       ]
 )

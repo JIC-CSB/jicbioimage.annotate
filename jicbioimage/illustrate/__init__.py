@@ -28,11 +28,15 @@ Or mask out a bitmap with the color cyan.
 
 """
 
+import os.path
+
+import PIL.ImageFont
 import numpy as np
 
-from jicbioimage.illustrate.font import Font
-
 __version__ = "0.0.1"
+
+HERE = os.path.dirname(__file__)
+DEFAULT_FONT_PATH = os.path.join(HERE, "fonts", "UbuntuMono-R.ttf")
 
 
 class Canvas(np.ndarray):
@@ -80,7 +84,8 @@ class Canvas(np.ndarray):
         """
         self[region] = color
 
-    def text_at(self, text, x, y, color=(255, 255, 255)):
+    def text_at(self, text, x, y, color=(255, 255, 255),
+                size=12, antialias=True):
         """Write text at x, y top left corner position.
 
         :param text: text to write
@@ -88,12 +93,25 @@ class Canvas(np.ndarray):
         :param y: y coordinate (int)
         :param color: RGB tuple
         """
-        fnt = Font()
-        ftext = fnt.render_text(text)
-        for ystep in range(ftext.height):
-            for xstep in range(ftext.width):
-                if ftext.pixels[ystep * ftext.width + xstep]:
-                    self[x + ystep, y + xstep] = color
+        def antialias_value(value, normalisation):
+            return int(round(value * normalisation))
+
+        def antialias_rgb(color, normalisation):
+            return tuple([antialias_value(v, normalisation) for v in color])
+
+        font = PIL.ImageFont.truetype(DEFAULT_FONT_PATH, size=size)
+        mask = font.getmask(text)
+        width, height = mask.size
+        for ystep in range(height):
+            for xstep in range(width):
+                normalisation = mask[ystep * width + xstep] / 255.
+                if antialias:
+                    if normalisation != 0:
+                        rgb_color = antialias_rgb(color, normalisation)
+                        self[y + ystep, x + xstep] = rgb_color
+                else:
+                    if normalisation > .5:
+                        self[y + ystep, x + xstep] = color
 
 
 class AnnotatedImage(Canvas):

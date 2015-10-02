@@ -69,18 +69,32 @@ class CanvasUnitTests(unittest.TestCase):
         self.assertEqual(np.sum(canvas), 1)
         self.assertTrue(canvas[1, 1, 1])
 
-    def test_text_at(self):
+    def test_text_at_antialias(self):
         from jicbioimage.illustrate import Canvas
-        canvas = Canvas.blank_canvas(width=4, height=6)
-        layer = np.array([
-            [0, 1, 1, 0],
-            [1, 0, 0, 1],
-            [1, 1, 1, 1],
-            [1, 0, 0, 0],
-            [1, 0, 0, 0],
-            [0, 1, 1, 1]], dtype=np.uint8)
+        canvas = Canvas.blank_canvas(width=6, height=6)
+        layer = np.array(
+            [[0,  38, 209, 233,  75, 0],
+             [0, 182,  77,  48, 212, 0],
+             [0, 239, 255, 255, 249, 0],
+             [0, 239,  21,   0,   0, 0],
+             [0, 176, 145,  10,   0, 0],
+             [0,  31, 192, 246, 213, 0]], dtype=np.uint8)
         expected = np.dstack([layer, layer, layer])
-        canvas.text_at("e", 0, 0, color=(1, 1, 1))
+        canvas.text_at("e", 0, 0, color=(255, 255, 255))
+        self.assertTrue(np.array_equal(canvas, expected))
+
+    def test_text_at_antialias_false(self):
+        from jicbioimage.illustrate import Canvas
+        canvas = Canvas.blank_canvas(width=6, height=6)
+        layer = np.array([
+            [0, 0, 1, 1, 0, 0],
+            [0, 1, 0, 0, 1, 0],
+            [0, 1, 1, 1, 1, 0],
+            [0, 1, 0, 0, 0, 0],
+            [0, 1, 1, 0, 0, 0],
+            [0, 0, 1, 1, 1, 0]], dtype=np.uint8)
+        expected = np.dstack([layer, layer, layer])
+        canvas.text_at("e", 0, 0, color=(1, 1, 1), antialias=False)
         self.assertTrue(np.array_equal(canvas, expected))
 
 
@@ -106,68 +120,6 @@ class AnnotatedImage(unittest.TestCase):
 
         cyan_canvas = AnnIm.from_grayscale(grayscale, (False, True, True))
         self.assertTrue(np.array_equal(cyan_canvas, cyan_expected))
-
-
-class FontFunctionalTests(unittest.TestCase):
-
-    def test_font_module(self):
-        from jicbioimage.illustrate.font import Font
-        fnt = Font()
-
-        # Single characters
-        ch = fnt.render_character('e')
-        self.assertEqual(repr(ch),
-"""
-.##.
-#..#
-####
-#...
-#...
-.###
-""".lstrip())
-
-        # Multiple characters
-        txt = fnt.render_text('hello')
-        self.assertEqual(repr(txt),
-"""
-#...........##....##..........
-#............#.....#..........
-###....##....#.....#.....##...
-#..#..#..#...#.....#....#..#..
-#..#..####...#.....#....#..#..
-#..#..#......#.....#....#..#..
-#..#..#......#.....#....#..#..
-#..#...###....##....##...##...
-""".lstrip())
-
-        # Kerning
-        txt = fnt.render_text('AV Wa')
-        self.assertEqual(repr(txt),
-"""
-..#...#...#.......#....#......
-.#.#..#...#.......#....#.##...
-.#.#...#.#........#....#...#..
-.#.#...#.#........#.##.#.###..
-.###...#.#........#.##.##..#..
-#...#..###........#.##.##..#..
-#...#...#..........#..#..###..
-""".lstrip())
-
-        # Choosing the baseline correctly
-        txt = fnt.render_text('hello, world.')
-        self.assertEqual(repr(txt),
-"""
-#...........##....##........................................##.......#........
-#............#.....#.........................................#.......#........
-###....##....#.....#.....##...............#...#..##...####...#.....###........
-#..#..#..#...#.....#....#..#..............#.#.#.#..#..#......#....#..#........
-#..#..####...#.....#....#..#..............#.#.#.#..#..#......#....#..#........
-#..#..#......#.....#....#..#..............#.#.#.#..#..#......#....#..#........
-#..#..#......#.....#....#..#...............#.#..#..#..#......#....#..#........
-#..#...###....##....##...##....#...........#.#...##...#.......##...###..#.....
-...............................#..............................................
-..............................#...............................................
-""".lstrip())
 
 
 class FunctionalTests(unittest.TestCase):
