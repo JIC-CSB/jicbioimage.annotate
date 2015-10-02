@@ -33,7 +33,7 @@ import os.path
 import PIL.ImageFont
 import numpy as np
 
-__version__ = "0.0.1"
+__version__ = "0.0.2"
 
 HERE = os.path.dirname(__file__)
 DEFAULT_FONT_PATH = os.path.join(HERE, "fonts", "UbuntuMono-R.ttf")
