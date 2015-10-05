@@ -97,6 +97,20 @@ class CanvasUnitTests(unittest.TestCase):
         canvas.text_at("e", 0, 0, color=(1, 1, 1), antialias=False)
         self.assertTrue(np.array_equal(canvas, expected))
 
+    def test_text_at_outside_image(self):
+        from jicbioimage.illustrate import Canvas
+        canvas = Canvas.blank_canvas(width=6, height=6)
+        layer = np.array([
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 1, 1, 0, 0],
+            [0, 1, 0, 0, 1, 0],
+            [0, 1, 1, 1, 1, 0],
+            [0, 1, 0, 0, 0, 0],
+            [0, 1, 1, 0, 0, 0]], dtype=np.uint8)
+        expected = np.dstack([layer, layer, layer])
+        canvas.text_at("e", 0, 1, color=(1, 1, 1), antialias=False)
+        self.assertTrue(np.array_equal(canvas, expected))
+
 
 class AnnotatedImage(unittest.TestCase):
 

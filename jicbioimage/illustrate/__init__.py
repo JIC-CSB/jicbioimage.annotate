@@ -99,6 +99,12 @@ class Canvas(np.ndarray):
         def antialias_rgb(color, normalisation):
             return tuple([antialias_value(v, normalisation) for v in color])
 
+        def set_color(xpos, ypos, color):
+            try:
+                self[ypos, xpos] = color
+            except IndexError:
+                pass
+
         font = PIL.ImageFont.truetype(DEFAULT_FONT_PATH, size=size)
         mask = font.getmask(text)
         width, height = mask.size
@@ -108,10 +114,10 @@ class Canvas(np.ndarray):
                 if antialias:
                     if normalisation != 0:
                         rgb_color = antialias_rgb(color, normalisation)
-                        self[y + ystep, x + xstep] = rgb_color
+                        set_color(x + xstep, y+ystep, rgb_color)
                 else:
                     if normalisation > .5:
-                        self[y + ystep, x + xstep] = color
+                        set_color(x + xstep, y + ystep, color)
 
 
 class AnnotatedImage(Canvas):
