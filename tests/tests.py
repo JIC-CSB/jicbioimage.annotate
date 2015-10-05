@@ -122,7 +122,8 @@ class CanvasUnitTests(unittest.TestCase):
             [0, 1, 1, 0, 0, 0],
             [0, 0, 1, 1, 1, 0]], dtype=np.uint8)
         expected = np.dstack([layer, layer, layer])
-        canvas.text_at("e", 3, 3, color=(1, 1, 1), antialias=False, center=True)
+        canvas.text_at("e", 3, 3, color=(1, 1, 1),
+                       antialias=False, center=True)
         self.assertTrue(np.array_equal(canvas, expected))
 
 
