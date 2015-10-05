@@ -28,6 +28,8 @@ import os
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.doctest',
+    'sphinx.ext.intersphinx',
+    'sphinx.ext.viewcode',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -267,3 +269,9 @@ texinfo_documents = [
 
 # If true, do not generate a @detailmenu in the "Top" node's menu.
 #texinfo_no_detailmenu = False
+
+# Example configuration for intersphinx: refer to the Python standard library.
+intersphinx_mapping = {
+    'jicbioimagecore':
+    ('http://jicbioimage.readthedocs.org/projects/jicbioimagecore/en/latest/', None)
+}

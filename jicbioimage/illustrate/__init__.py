@@ -16,15 +16,21 @@ as a RGB gray scale image.
 >>> canvas = AnnotatedImage.from_grayscale(im)
 
 The :class:`jicbioimage.illustrate.Canvas` instance has built in annotation
-functionality. We can draw a cross at coordinates (10, 20).
+functionality.
+
+One can use it to draw crosses.
 
 >>> canvas.draw_cross(10, 20)
 
-Or mask out a bitmap with the color cyan.
+One can use it to mask out bitmaps (in the example below with the color cyan).
 
 >>> bitmap = np.zeros((50, 50), dtype=bool)
 >>> bitmap[30:40, 30:40] = True
 >>> canvas.mask_region(bitmap, color=(0, 255, 255))
+
+One can use it to add text at particular locations on the canvas.
+
+>>> canvas.text_at("Hello", 30, 60)
 
 """
 
@@ -46,8 +52,8 @@ class Canvas(np.ndarray):
     def blank_canvas(width, height):
         """Return a blank canvas to annotate.
 
-        :param x: xdim
-        :param y: ydim
+        :param width: xdim (int)
+        :param height: ydim (int)
         :returns: :class:`jicbioimage.illustrate.Canvas`
         """
         canvas = np.zeros((height, width, 3), dtype=np.uint8)
@@ -88,10 +94,17 @@ class Canvas(np.ndarray):
                 size=12, antialias=True, center=False):
         """Write text at x, y top left corner position.
 
+        By default the x and y coordinates represent the top left hand corner
+        of the text. The text can be centered vertically and horizontally by
+        using setting the ``center`` option to ``True``.
+
         :param text: text to write
         :param x: x coordinate (int)
         :param y: y coordinate (int)
         :param color: RGB tuple
+        :param size: font size
+        :param antialias: whether or not the text should be antialiased
+        :param center: whether or not the text should be centered on the input coordinate
         """
         def antialias_value(value, normalisation):
             return int(round(value * normalisation))
