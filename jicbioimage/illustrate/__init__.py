@@ -85,7 +85,7 @@ class Canvas(np.ndarray):
         self[region] = color
 
     def text_at(self, text, x, y, color=(255, 255, 255),
-                size=12, antialias=True):
+                size=12, antialias=True, center=False):
         """Write text at x, y top left corner position.
 
         :param text: text to write
@@ -108,6 +108,9 @@ class Canvas(np.ndarray):
         font = PIL.ImageFont.truetype(DEFAULT_FONT_PATH, size=size)
         mask = font.getmask(text)
         width, height = mask.size
+        if center:
+            x = x - (width // 2)
+            y = y - (height // 2)
         for ystep in range(height):
             for xstep in range(width):
                 normalisation = mask[ystep * width + xstep] / 255.
