@@ -33,10 +33,9 @@ creating annotated images and illustrations.
 Features
 --------
 
-- Load texture from grayscale image
-- Mask regions of interest
-- Draw crosses
-- Write text
+- Functionality for creating illustrations and annotated images
+- Cross-platform: Linux, Mac and Windows are all supported
+- Works with Python 2.7, 3.3 and 3.4
 
 Related packages
 ----------------
@@ -58,3 +57,9 @@ Related packages
 
 - Documentation: http://jicbioimagetransform.readthedocs.org
 - GitHub: https://github.com/JIC-CSB/jicbioimage.transform
+
+``jicbioimage.segment``
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+- Documentation: http://jicbioimagesegment.readthedocs.org
+- GitHub: https://github.com/JIC-CSB/jicbioimage.segment
