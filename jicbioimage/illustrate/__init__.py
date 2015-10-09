@@ -39,13 +39,15 @@ import os.path
 import PIL.ImageFont
 import numpy as np
 
+import jicbioimage.core.image
+
 __version__ = "0.1.0"
 
 HERE = os.path.dirname(__file__)
 DEFAULT_FONT_PATH = os.path.join(HERE, "fonts", "UbuntuMono-R.ttf")
 
 
-class Canvas(np.ndarray):
+class Canvas(jicbioimage.core.image._BaseImage):
     """Class for building up annotated images."""
 
     @staticmethod
