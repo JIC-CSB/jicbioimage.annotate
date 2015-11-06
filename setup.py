@@ -26,6 +26,7 @@ readme = open('README.rst').read()
 
 setup(name="jicbioimage.illustrate",
       packages=["jicbioimage", "jicbioimage.illustrate"],
+      package_data={"jicbioimage.illustrate": ["fonts/*"]},
       version=version,
       description="Python package providing a set of tools for creating annotated images and illustrations.",
       long_description=readme,
