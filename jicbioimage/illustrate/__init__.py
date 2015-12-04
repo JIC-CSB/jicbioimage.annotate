@@ -40,20 +40,12 @@ import PIL.ImageFont
 import numpy as np
 
 import jicbioimage.core.image
-import jicbioimage.core.util.array
 
 __version__ = "0.3.0"
 
 HERE = os.path.dirname(__file__)
 DEFAULT_FONT_PATH = os.path.join(HERE, "fonts", "UbuntuMono-R.ttf")
 
-
-def pretty_color():
-    """Return aesthetically pleasing RGB tuple.
-
-    :returns: RGB tuple
-    """
-    return jicbioimage.core.util.array._pretty_color()
 
 class Canvas(jicbioimage.core.image._BaseImage):
     """Class for building up annotated images."""

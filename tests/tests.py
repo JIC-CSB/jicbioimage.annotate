@@ -16,19 +16,6 @@ class UnitTests(unittest.TestCase):
         import jicbioimage.illustrate
         self.assertTrue(isinstance(jicbioimage.illustrate.__version__, str))
 
-    def test_pretty_color(self):
-
-        from jicbioimage.illustrate import pretty_color
-
-        color = pretty_color()
-
-        self.assertEqual(len(color), 3)
-        self.assertTrue(isinstance(color, tuple))
-
-        for _ in range(1000):
-            color = pretty_color()
-            self.assertTrue(all(0 <= c <= 255 for c in color))
-
 
 class CanvasUnitTests(unittest.TestCase):
 
