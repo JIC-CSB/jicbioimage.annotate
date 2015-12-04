@@ -41,7 +41,7 @@ import numpy as np
 
 import jicbioimage.core.image
 
-__version__ = "0.3.0"
+__version__ = "0.4.0"
 
 HERE = os.path.dirname(__file__)
 DEFAULT_FONT_PATH = os.path.join(HERE, "fonts", "UbuntuMono-R.ttf")
