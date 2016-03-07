@@ -93,7 +93,7 @@ class Canvas(jicbioimage.core.image._BaseImage):
         self[region] = color
 
     def text_at(self, text, position, color=(255, 255, 255),
-                size=12, antialias=True, center=False):
+                size=12, antialias=False, center=False):
         """Write text at x, y top left corner position.
 
         By default the x and y coordinates represent the top left hand corner
@@ -105,7 +105,8 @@ class Canvas(jicbioimage.core.image._BaseImage):
         :param color: RGB tuple
         :param size: font size
         :param antialias: whether or not the text should be antialiased
-        :param center: whether or not the text should be centered on the input coordinate
+        :param center: whether or not the text should be centered on the
+                       input coordinate
         """
         def antialias_value(value, normalisation):
             return int(round(value * normalisation))
