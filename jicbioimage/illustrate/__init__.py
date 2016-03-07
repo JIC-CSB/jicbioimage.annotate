@@ -61,14 +61,14 @@ class Canvas(jicbioimage.core.image._BaseImage):
         canvas = np.zeros((height, width, 3), dtype=np.uint8)
         return canvas.view(Canvas)
 
-    def draw_cross(self, x, y, color=(255, 0, 0), radius=4):
+    def draw_cross(self, position, color=(255, 0, 0), radius=4):
         """Draw a cross on the canvas.
 
-        :param x: x coordinate (int)
-        :param y: y coordinate (int)
+        :param position: tuple of y, x coordinates
         :param color: RGB tuple
         :param radius: radius of the cross (int)
         """
+        y, x = position
         for xmod in np.arange(-radius, radius+1, 1):
             xpos = x + xmod
             if xpos < 0:
@@ -92,7 +92,7 @@ class Canvas(jicbioimage.core.image._BaseImage):
         """
         self[region] = color
 
-    def text_at(self, text, x, y, color=(255, 255, 255),
+    def text_at(self, text, position, color=(255, 255, 255),
                 size=12, antialias=True, center=False):
         """Write text at x, y top left corner position.
 
@@ -101,8 +101,7 @@ class Canvas(jicbioimage.core.image._BaseImage):
         using setting the ``center`` option to ``True``.
 
         :param text: text to write
-        :param x: x coordinate (int)
-        :param y: y coordinate (int)
+        :param position: tuple of y, x coordinates
         :param color: RGB tuple
         :param size: font size
         :param antialias: whether or not the text should be antialiased
@@ -120,6 +119,7 @@ class Canvas(jicbioimage.core.image._BaseImage):
             except IndexError:
                 pass
 
+        y, x = position
         font = PIL.ImageFont.truetype(DEFAULT_FONT_PATH, size=size)
         mask = font.getmask(text)
         width, height = mask.size
