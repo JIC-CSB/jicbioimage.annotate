@@ -36,6 +36,13 @@ class CanvasUnitTests(unittest.TestCase):
         expected = np.dstack([layer, layer, layer])
         self.assertTrue(np.array_equal(canvas, expected))
 
+    def test_draw_cross_on_rectangular_canvas(self):
+        # This used to fail when there was an issue confusing the y, x axis.
+        from jicbioimage.illustrate import Canvas
+        canvas = Canvas.blank_canvas(width=3, height=30)
+        canvas.draw_cross(position=(25, 1), color=(1, 1, 1), radius=1)
+        self.assertEqual(np.sum(canvas), 15)
+
     def test_draw_cross_fractional_coords(self):
         from jicbioimage.illustrate import Canvas
         canvas = Canvas.blank_canvas(width=3, height=3)

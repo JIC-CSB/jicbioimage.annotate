@@ -73,14 +73,14 @@ class Canvas(jicbioimage.core.image._BaseImage):
             xpos = x + xmod
             if xpos < 0:
                 continue  # Negative indices will draw on the opposite side.
-            if xpos >= self.shape[0]:
+            if xpos >= self.shape[1]:
                 continue  # Out of bounds.
             self[y, xpos] = color
         for ymod in np.arange(-radius, radius+1, 1):
             ypos = y + ymod
             if ypos < 0:
                 continue  # Negative indices will draw on the opposite side.
-            if ypos >= self.shape[1]:
+            if ypos >= self.shape[0]:
                 continue  # Out of bounds.
             self[ypos, x] = color
 
