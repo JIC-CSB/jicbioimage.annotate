@@ -54,6 +54,7 @@ setup(name="jicbioimage.illustrate",
       install_requires=[
         "pillow",
         "numpy",
+        "scikit-image",
         "jicbioimage.core",
       ]
 )
