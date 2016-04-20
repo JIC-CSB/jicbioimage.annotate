@@ -92,8 +92,6 @@ class Canvas(jicbioimage.core.image._BaseImage):
         :param pos2: position 2 (row, col) tuple
         :param color: RGB tuple
         """
-        ydim, xdim, zdim = self.shape
-        mask = np.zeros((ydim, xdim), dtype=bool)
         r1, c1 = tuple([int(round(i, 0)) for i in pos1])
         r2, c2 = tuple([int(round(i, 0)) for i in pos2])
         rr, cc = skimage.draw.line(r1, c1, r2, c2)
