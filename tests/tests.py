@@ -84,6 +84,36 @@ class CanvasUnitTests(unittest.TestCase):
         self.assertEqual(np.sum(canvas), 1)
         self.assertTrue(canvas[1, 1, 1])
 
+    def test_draw_line(self):
+        from jicbioimage.illustrate import Canvas
+        canvas = Canvas.blank_canvas(3, 3)
+        layer = np.array([[1, 0, 0],
+                          [0, 1, 0],
+                          [0, 0, 1]], dtype=np.uint8)
+        expected = np.dstack([layer, layer, layer])
+        canvas.draw_line((0, 0), (2, 2), color=(1, 1, 1))
+        self.assertTrue(np.array_equal(canvas, expected))
+
+    def test_draw_line_float_input(self):
+        from jicbioimage.illustrate import Canvas
+        canvas = Canvas.blank_canvas(3, 3)
+        layer = np.array([[1, 0, 0],
+                          [0, 1, 0],
+                          [0, 0, 1]], dtype=np.uint8)
+        expected = np.dstack([layer, layer, layer])
+        canvas.draw_line((0.2, 0.3), (1.9, 2.2), color=(1, 1, 1))
+        self.assertTrue(np.array_equal(canvas, expected))
+
+    def test_draw_line_color(self):
+        from jicbioimage.illustrate import Canvas
+        canvas = Canvas.blank_canvas(3, 3)
+        layer = np.array([[1, 0, 0],
+                          [0, 1, 0],
+                          [0, 0, 1]], dtype=np.uint8)
+        expected = np.dstack([layer, layer*2, layer*3])
+        canvas.draw_line((0, 0), (2, 2), color=(1, 2, 3))
+        self.assertTrue(np.array_equal(canvas, expected))
+
     def test_text_at_antialias(self):
         from jicbioimage.illustrate import Canvas
         canvas = Canvas.blank_canvas(width=6, height=6)

@@ -38,6 +38,7 @@ import os.path
 
 import PIL.ImageFont
 import numpy as np
+import skimage.draw
 
 import jicbioimage.core.image
 
@@ -64,7 +65,7 @@ class Canvas(jicbioimage.core.image._BaseImage):
     def draw_cross(self, position, color=(255, 0, 0), radius=4):
         """Draw a cross on the canvas.
 
-        :param position: tuple of y, x coordinates
+        :param position: (row, col) tuple
         :param color: RGB tuple
         :param radius: radius of the cross (int)
         """
@@ -84,6 +85,20 @@ class Canvas(jicbioimage.core.image._BaseImage):
                 continue  # Out of bounds.
             self[ypos, x] = color
 
+    def draw_line(self, pos1, pos2, color=(255, 0, 0)):
+        """Draw a line between pos1 and pos2 on the canvas.
+
+        :param pos1: position 1 (row, col) tuple
+        :param pos2: position 2 (row, col) tuple
+        :param color: RGB tuple
+        """
+        ydim, xdim, zdim = self.shape
+        mask = np.zeros((ydim, xdim), dtype=bool)
+        r1, c1 = tuple([int(round(i, 0)) for i in pos1])
+        r2, c2 = tuple([int(round(i, 0)) for i in pos2])
+        rr, cc = skimage.draw.line(r1, c1, r2, c2)
+        self[rr, cc] = color
+
     def mask_region(self, region, color=(0, 255, 0)):
         """Mask a region with a color.
 
@@ -101,7 +116,7 @@ class Canvas(jicbioimage.core.image._BaseImage):
         using setting the ``center`` option to ``True``.
 
         :param text: text to write
-        :param position: tuple of y, x coordinates
+        :param position: (row, col) tuple
         :param color: RGB tuple
         :param size: font size
         :param antialias: whether or not the text should be antialiased
