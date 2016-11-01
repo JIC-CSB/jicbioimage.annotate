@@ -42,7 +42,7 @@ import skimage.draw
 
 import jicbioimage.core.image
 
-__version__ = "0.6.0"
+__version__ = "0.6.1"
 
 HERE = os.path.dirname(__file__)
 DEFAULT_FONT_PATH = os.path.join(HERE, "fonts", "UbuntuMono-R.ttf")
