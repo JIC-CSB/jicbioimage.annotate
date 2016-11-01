@@ -76,14 +76,14 @@ class Canvas(jicbioimage.core.image._BaseImage):
                 continue  # Negative indices will draw on the opposite side.
             if xpos >= self.shape[1]:
                 continue  # Out of bounds.
-            self[y, xpos] = color
+            self[int(y), int(xpos)] = color
         for ymod in np.arange(-radius, radius+1, 1):
             ypos = y + ymod
             if ypos < 0:
                 continue  # Negative indices will draw on the opposite side.
             if ypos >= self.shape[0]:
                 continue  # Out of bounds.
-            self[ypos, x] = color
+            self[int(ypos), int(x)] = color
 
     def draw_line(self, pos1, pos2, color=(255, 0, 0)):
         """Draw a line between pos1 and pos2 on the canvas.
