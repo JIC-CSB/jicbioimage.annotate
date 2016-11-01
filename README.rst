@@ -25,7 +25,7 @@ The ``jicbioimage.illustrate`` Python package
 The ``jicbioimage.illustrate`` Python package provides a set of tools for
 creating annotated images and illustrations.
 
-- Documentation: http://jicbioimageillustrate.readthedocs.org
+- Documentation: http://jicbioimageillustrate.readthedocs.io
 - GitHub: https://github.com/JIC-CSB/jicbioimage.illustrate
 - PyPI: https://pypi.python.org/pypi/jicbioimage.illustrate
 - Free software: MIT License
@@ -43,23 +43,23 @@ Related packages
 ``jicbioimage``
 ^^^^^^^^^^^^^^^
 
-- Documentation: http://jicbioimage.readthedocs.org
+- Documentation: http://jicbioimage.readthedocs.io
 - GitHub: https://github.com/JIC-CSB/jicbioimage
 
 ``jicbioimage.core``
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-- Documentation: http://jicbioimagecore.readthedocs.org
+- Documentation: http://jicbioimagecore.readthedocs.io
 - GitHub: https://github.com/JIC-CSB/jicbioimage.core
 
 ``jicbioimage.transform``
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-- Documentation: http://jicbioimagetransform.readthedocs.org
+- Documentation: http://jicbioimagetransform.readthedocs.io
 - GitHub: https://github.com/JIC-CSB/jicbioimage.transform
 
 ``jicbioimage.segment``
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-- Documentation: http://jicbioimagesegment.readthedocs.org
+- Documentation: http://jicbioimagesegment.readthedocs.io
 - GitHub: https://github.com/JIC-CSB/jicbioimage.segment
